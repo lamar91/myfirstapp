@@ -1,0 +1,118 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+    <Dialog showHeader="false" escapeHandler=".onEscapeHandler">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm
+                    id="AddDialog"
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Orders"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                >
+                    <f:content>
+                        <Label text="CustomerID" />
+                        <Input id="customerInput" required="true" placeholder="Enter Customer Name" 
+                        showSuggestion="true" showValueHelp="true" valueHelpRequest=".onValueHelpRequest"
+                        suggestionItems="{/Orders}" suggestionItemSelected="onSuggSelected"
+                        liveChange="onLiveChangIpCustom">
+                            <suggestionItems>
+                                <core:Item text="{CustomerID}" />
+                            </suggestionItems>
+                        </Input>
+                        <ComboBox>
+                        <core:Item key="{key}" text="{text}" />
+                        </ComboBox>
+                        <MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" items="{
+                                path: '/Orders',
+                                sorter: { path: 'ShipCountry' }
+                                }">
+                            <core:Item key="{CustomerID}" text="{ShipCountry}" />
+                        </MultiComboBox>
+
+                        <Label text="Street/No." />
+                        <Input value="{Street}" />
+                        <Input value="{HouseNumber}">
+                            <layoutData>
+                                <l:GridData span="XL1 L2 M2 S4" />
+                            </layoutData>
+                        </Input>
+                        <Label text="ZIP Code/City" />
+                        <Input id="idZipCode" required="true" maxLength="5" liveChange="onLiveChangeIpZip">
+                            <layoutData>
+                                <l:GridData span="XL1 L2 M2 S4" />
+                            </layoutData>
+                        </Input>
+                        <Input value="{City}" />
+                        <Label text="Country" />
+                        <Select id="country" selectedKey="{Country}">
+                            <items>
+                                <core:Item text="England" key="England" />
+                                <core:Item text="Germany" key="Germany" />
+                                <core:Item text="USA" key="USA" />
+                            </items>
+                        </Select>
+                        <Label text="Email Id" />
+                        <Input id="idEmail" required="true" placeholder="Enter email id" liveChange="onLiveChangeEmail" submit="onSubmit" />
+                    </f:content>
+                </f:SimpleForm>
+                <!-- </SelectDialog> -->
+                <l:VerticalLayout>
+                    <Text text="Do you want to share invoice to below any adress?" />
+                    <CheckBox text="select / deselect all" textAlign="Center"
+                              selected="{= ${cbModel>/child1} || ${cbModel>/child2} || ${cbModel>/child3} }"
+                              partiallySelected="{= !(${cbModel>/child1} &amp;&amp; ${cbModel>/child2} &amp;&amp; ${cbModel>/child3})}"
+                              select="onCBClicked" />
+                    <core:HTML content="&lt;hr&gt;" />
+                    <CheckBox text="Billing Adress" selected="{cbModel>/child1}" />
+                    <CheckBox text="Shipping Adress" selected="{cbModel>/child2}" />
+                    <CheckBox text="Delivery Adress" selected="{cbModel>/child3}" />
+                </l:VerticalLayout>
+            </VBox>
+            <HBox class="sapUiSmallMarginBeginEnd">
+            <Label text="Opt for cash on delivery?" class="sapUiTinyMarginTop" design="Bold" />
+			<Switch state="false" customTextOn="Yes" customTextOff="No" class="sapUiSmallMarginBegin">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</Switch>
+		    </HBox>
+            <VBox class="sapUiSmallMargin">
+            <Label text="Set working timings?" />
+            <HBox class="sapUiTinyMarginTopBottom">
+                <VBox class="sapUiMediumMarginEnd">
+                    <Label text="@Office timings" labelFor="groupA" />
+                    <RadioButtonGroup id="groupA" valueState="Information" selectedIndex="-1" select="onSelectRadio">
+                        <RadioButton text="9 AM - 6 PM"/>
+                        <RadioButton text="12 M - 9 PM" />
+                    </RadioButtonGroup>
+                </VBox>
+                <VBox class="sapUiMediumMarginEnd">
+                    <Label text="@Work from home timings" labelFor="groupB" />
+                    <RadioButtonGroup id="groupB" valueState="Information" selectedIndex="-1" select="onSelectRadio">
+                        <RadioButton text="8 AM - 7 PM"/>
+                        <RadioButton text="11 AM - 10 PM" />
+                    </RadioButtonGroup>
+                </VBox>
+            </HBox>
+            </VBox>
+        </content>
+        <beginButton>
+            <Button text="Close" press="onCloseDialog" />
+        </beginButton>
+        <endButton>
+            <Button text="Save" press="onSaveDialog" type="Accept" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

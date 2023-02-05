@@ -1,0 +1,27 @@
+<mvc:View controllerName="auro.eng.inv.testingapp.controller.DetailHistory" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <Page title="Title" showNavButton="true" navButtonPress=".onNavBack">
+        <content>
+            <IconTabBar id="iconTabBar"
+                        headerBackgroundDesign="Transparent"
+                        class="sapUiResponsiveContentPadding"
+                        binding="{DetailHistory}"
+                        select=".onTabSelect"
+				        selectedKey="{newModel>/selectedTabKey}">
+                <items>
+                    <IconTabFilter id="infoTab" text="{i18n>tabInfo}" key="Info">
+                        <Text text="{Information}" />
+                    </IconTabFilter>
+                    <IconTabFilter id="projectsTab" text="{i18n>tabProjects}" key="Projects">
+                        <mvc:XMLView viewName="auro.eng.inv.testingapp.view.OrderHistory" />
+                    </IconTabFilter>
+                    <IconTabFilter id="hobbiesTab" text="{i18n>tabHobbies}" key="Hobbies">
+                        <Text text="{Hobbies}" />
+                    </IconTabFilter>
+                    <IconTabFilter id="notesTab" text="{i18n>tabNotes}" key="Notes">
+                        <Text text="{Notes}" />
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>
